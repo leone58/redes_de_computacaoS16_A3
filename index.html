@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redes & Segurança — Sub-redes e Gestão de Riscos</title>
+  <meta name="description" content="Aula interativa sobre sub-redes (subnetting) e gestão de riscos de segurança da informação, com consoles animados e quiz." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Barra de progresso de leitura -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Navegação -->
+  <header class="nav">
+    <a href="#top" class="brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">redes<span class="accent">.sec</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Seções">
+      <a href="#sub-redes">Sub-redes</a>
+      <a href="#riscos">Gestão de Riscos</a>
+      <a href="#quiz">Quiz</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="kicker">Aula prática · 150 minutos</p>
+        <h1 class="hero-title text-balance">
+          Sub-redes e <span class="accent">Gestão de Riscos</span> de Segurança da Informação
+        </h1>
+        <p class="hero-sub text-pretty">
+          Entenda como dividir uma rede em partes menores e como proteger os dados de uma empresa
+          identificando ativos, ameaças e vulnerabilidades. Tudo com consoles ao vivo e um quiz no final.
+        </p>
+        <div class="hero-actions">
+          <a href="#sub-redes" class="btn btn-primary">Começar aula</a>
+          <a href="#quiz" class="btn btn-ghost">Ir para o quiz</a>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-card">
+            <span class="meta-num" data-count="2">0</span>
+            <span class="meta-label">grandes temas</span>
+          </div>
+          <div class="meta-card">
+            <span class="meta-num" data-count="10">0</span>
+            <span class="meta-label">perguntas de quiz</span>
+          </div>
+          <div class="meta-card">
+            <span class="meta-num" data-count="4">0</span>
+            <span class="meta-label">consoles ao vivo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SUB-REDES ================= -->
+    <section class="section" id="sub-redes">
+      <div class="section-head reveal">
+        <span class="tag">Tema 01</span>
+        <h2 class="section-title">O que são <span class="accent">Sub-redes</span>?</h2>
+        <p class="section-lead text-pretty">
+          Imagine um prédio enorme com uma sala só. Bagunçado, né? Sub-redes são como dividir esse prédio
+          em andares e salas: mais organização, mais controle e mais segurança.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <div class="card-icon">IP</div>
+          <h3>Endereço IP</h3>
+          <p>É o "RG" de cada aparelho na rede. No IPv4 são 4 números de 0 a 255, tipo <code>192.168.0.10</code>.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon">/</div>
+          <h3>Máscara / CIDR</h3>
+          <p>Define quanto da rede é "endereço fixo" e quanto sobra para os aparelhos. O <code>/24</code> deixa 254 aparelhos.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon">÷</div>
+          <h3>Por que dividir?</h3>
+          <p>Separar setores (RH, Vendas, TI) evita que um problema numa área derrube a rede inteira.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon">+</div>
+          <h3>Vantagens</h3>
+          <p>Mais desempenho, menos tráfego desnecessário e isolamento: cada setor no seu "quadrado".</p>
+        </div>
+      </div>
+
+      <!-- Console animado 1 -->
+      <div class="terminal reveal" data-terminal="subnet">
+        <div class="terminal-bar">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="terminal-title">terminal — planejamento de sub-redes</span>
+        </div>
+        <pre class="terminal-body" data-lines='[
+          "$ ipconfig /all",
+          "  IPv4 . . . . . . . : 192.168.0.10",
+          "  Máscara  . . . . . : 255.255.255.0   (/24)",
+          "  Gateway  . . . . . : 192.168.0.1",
+          "",
+          "$ calcular-subrede 192.168.0.0/24 --setores 4",
+          "  RH      -> 192.168.0.0/26   (62 hosts)",
+          "  Vendas  -> 192.168.0.64/26  (62 hosts)",
+          "  TI      -> 192.168.0.128/26 (62 hosts)",
+          "  Visitas -> 192.168.0.192/26 (62 hosts)",
+          "  [ok] rede dividida em 4 sub-redes isoladas ✔"
+        ]'></pre>
+      </div>
+
+      <!-- Guia de leitura do console 1 -->
+      <div class="console-guide reveal">
+        <div class="guide-head">
+          <span class="guide-badge">Entenda o console</span>
+          <h3>O que cada linha faz</h3>
+          <p class="guide-desc">Leia junto com os alunos: cada comando acima explicado em português.</p>
+        </div>
+        <ul class="guide-list">
+          <li>
+            <code>ipconfig /all</code>
+            <span>Comando que mostra as configurações de rede do computador (o IP, a máscara e o gateway). É o "raio-x" da conexão.</span>
+          </li>
+          <li>
+            <code>IPv4: 192.168.0.10</code>
+            <span>É o endereço (o "RG") deste aparelho na rede. Cada máquina tem o seu, e não pode repetir.</span>
+          </li>
+          <li>
+            <code>Máscara: 255.255.255.0 (/24)</code>
+            <span>Diz qual parte do IP é a rede e qual parte é o aparelho. O <strong>/24</strong> reserva espaço para 254 aparelhos.</span>
+          </li>
+          <li>
+            <code>Gateway: 192.168.0.1</code>
+            <span>É a "porta de saída" da rede — normalmente o roteador. Tudo que vai para a internet passa por aqui.</span>
+          </li>
+          <li>
+            <code>calcular-subrede ... --setores 4</code>
+            <span>Pede para dividir a rede grande em 4 pedaços menores, um para cada setor da empresa.</span>
+          </li>
+          <li>
+            <code>RH / Vendas / TI / Visitas -&gt; /26</code>
+            <span>Cada setor virou uma sub-rede separada com 62 aparelhos. Assim um problema no RH não atrapalha as Vendas.</span>
+          </li>
+          <li>
+            <code>[ok] rede dividida ✔</code>
+            <span>Confirmação de que deu tudo certo: a rede agora está organizada e isolada por setor.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Calculadora interativa simples -->
+      <div class="mini-lab reveal">
+        <h3 class="lab-title">Laboratório rápido: quantos aparelhos cabem?</h3>
+        <p class="lab-desc">Arraste o valor do CIDR e veja quantos aparelhos a sub-rede aguenta.</p>
+        <div class="lab-controls">
+          <label for="cidrRange">CIDR: <strong id="cidrValue">/24</strong></label>
+          <input type="range" id="cidrRange" min="24" max="30" value="24" step="1" />
+        </div>
+        <div class="lab-result">
+          <div class="lab-stat">
+            <span class="lab-num" id="hostsOut">254</span>
+            <span class="lab-lbl">aparelhos utilizáveis</span>
+          </div>
+          <div class="lab-stat">
+            <span class="lab-num" id="subnetsOut">1</span>
+            <span class="lab-lbl">sub-redes a partir de um /24</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GESTÃO DE RISCOS ================= -->
+    <section class="section alt" id="riscos">
+      <div class="section-head reveal">
+        <span class="tag">Tema 02</span>
+        <h2 class="section-title">Gestão de <span class="accent">Riscos</span> de Segurança</h2>
+        <p class="section-lead text-pretty">
+          Segurança da informação é proteger o que a empresa tem de valioso. Para isso a gente responde 3 perguntas:
+          o que proteger, do que proteger e onde estamos fracos.
+        </p>
+      </div>
+
+      <div class="concept-row">
+        <div class="concept reveal">
+          <span class="concept-key">Ativo</span>
+          <p>O que tem valor: dados de clientes, sistema, servidor, senha.</p>
+        </div>
+        <div class="concept-plus">→</div>
+        <div class="concept reveal">
+          <span class="concept-key">Ameaça</span>
+          <p>O que pode causar dano: hacker, vírus, incêndio, funcionário descuidado.</p>
+        </div>
+        <div class="concept-plus">→</div>
+        <div class="concept reveal">
+          <span class="concept-key">Vulnerabilidade</span>
+          <p>A fraqueza que a ameaça aproveita: senha fraca, sistema desatualizado.</p>
+        </div>
+      </div>
+
+      <div class="formula reveal">
+        <p class="formula-line">
+          <span class="f-part">Risco</span>
+          <span class="f-op">=</span>
+          <span class="f-part alt-part">Probabilidade</span>
+          <span class="f-op">×</span>
+          <span class="f-part alt-part">Impacto</span>
+        </p>
+        <p class="formula-note">Quanto mais provável de acontecer e mais estrago causa, maior o risco. Simples assim.</p>
+      </div>
+
+      <!-- Console animado 2 -->
+      <div class="terminal reveal" data-terminal="risk">
+        <div class="terminal-bar">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="terminal-title">terminal — análise de riscos</span>
+        </div>
+        <pre class="terminal-body" data-lines='[
+          "$ analisar-riscos --empresa MinhaLoja",
+          "  [scan] mapeando ativos...",
+          "  ativo: banco-de-dados-clientes   valor: ALTO",
+          "  ameaca: ransomware               prob: media",
+          "  vuln: backup-desatualizado       grave: SIM",
+          "",
+          "  >> risco calculado: CRITICO (prob media x impacto alto)",
+          "  [acao] recomendacao: backup diario + senha forte + 2FA",
+          "  [ok] plano de mitigacao gerado ✔"
+        ]'></pre>
+      </div>
+
+      <!-- Guia de leitura do console 2 -->
+      <div class="console-guide reveal">
+        <div class="guide-head">
+          <span class="guide-badge">Entenda o console</span>
+          <h3>O que cada linha faz</h3>
+          <p class="guide-desc">Cada passo da análise de risco explicado para você contar aos alunos.</p>
+        </div>
+        <ul class="guide-list">
+          <li>
+            <code>analisar-riscos --empresa MinhaLoja</code>
+            <span>Começa a "varredura" de segurança da empresa, procurando o que pode dar errado.</span>
+          </li>
+          <li>
+            <code>[scan] mapeando ativos...</code>
+            <span>Está listando tudo que tem valor e precisa ser protegido (o que chamamos de ativos).</span>
+          </li>
+          <li>
+            <code>ativo: banco-de-dados-clientes — valor: ALTO</code>
+            <span>Encontrou um ativo muito importante: os dados dos clientes. Se vazar, é um problemão.</span>
+          </li>
+          <li>
+            <code>ameaca: ransomware — prob: media</code>
+            <span>Identificou uma ameaça (vírus que sequestra dados) com chance média de acontecer.</span>
+          </li>
+          <li>
+            <code>vuln: backup-desatualizado — grave: SIM</code>
+            <span>Achou a vulnerabilidade: o backup está velho. É a "porta aberta" que a ameaça pode usar.</span>
+          </li>
+          <li>
+            <code>&gt;&gt; risco: CRITICO (prob x impacto)</code>
+            <span>Juntando chance média + estrago alto, o risco final é crítico. Precisa agir logo.</span>
+          </li>
+          <li>
+            <code>[acao] backup diario + senha forte + 2FA</code>
+            <span>As medidas de mitigação: o que fazer para reduzir o risco (proteger melhor).</span>
+          </li>
+          <li>
+            <code>[ok] plano de mitigacao gerado ✔</code>
+            <span>Pronto: a empresa agora tem um plano claro para se proteger.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Matriz de risco -->
+      <div class="matrix reveal">
+        <h3 class="lab-title">Matriz de risco: clique numa célula</h3>
+        <p class="lab-desc">Cruze a probabilidade com o impacto para descobrir o nível do risco.</p>
+        <div class="matrix-grid" id="matrixGrid" role="grid" aria-label="Matriz de risco"></div>
+        <p class="matrix-out" id="matrixOut">Selecione uma combinação acima.</p>
+      </div>
+    </section>
+
+    <!-- ================= QUIZ ================= -->
+    <section class="section" id="quiz">
+      <div class="section-head reveal">
+        <span class="tag">Hora de valer</span>
+        <h2 class="section-title">Quiz <span class="accent">Relâmpago</span></h2>
+        <p class="section-lead text-pretty">10 perguntas rápidas. Escolha, receba a explicação na hora e veja sua pontuação no final.</p>
+      </div>
+
+      <div class="quiz-wrap reveal">
+        <div class="quiz-top">
+          <div class="quiz-progress">
+            <div class="quiz-progress-bar" id="quizBar"></div>
+          </div>
+          <span class="quiz-counter" id="quizCounter">1 / 10</span>
+        </div>
+
+        <div id="quizCard" class="quiz-card">
+          <!-- preenchido via JS -->
+        </div>
+
+        <div id="quizResult" class="quiz-result hidden">
+          <div class="score-ring" id="scoreRing">
+            <span class="score-num" id="scoreNum">0</span>
+            <span class="score-total">/10</span>
+          </div>
+          <h3 id="scoreTitle">Mandou bem!</h3>
+          <p id="scoreMsg" class="text-pretty"></p>
+          <button class="btn btn-primary" id="restartBtn">Refazer o quiz</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Feito para a aula de Redes & Segurança da Informação. Bons estudos! 🚀</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
